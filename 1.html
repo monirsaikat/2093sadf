@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>তোমার জন্য—একটা ছোট্ট ওয়েবপেজ 💖</title>
+  <meta name="description" content="একজন কোডার মেয়ের জন্য কিউট, রোমান্টিক, সাহিত্য-ভাইব বাংলা সিঙ্গেল পেজ ওয়েবসাইট।"/>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#120a1f;
+      --card: rgba(255,255,255,.07);
+      --border: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --pink:#ff6aa2;
+      --violet:#a78bfa;
+      --cyan:#67e8f9;
+      --gold:#fbbf24;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans Bengali", "Hind Siliguri", Arial, sans-serif;
+      color: var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(255,106,162,.20), transparent 55%),
+        radial-gradient(900px 600px at 80% 15%, rgba(167,139,250,.22), transparent 55%),
+        radial-gradient(800px 600px at 50% 85%, rgba(103,232,249,.15), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* floating hearts */
+    .floaters{
+      position:fixed; inset:0; pointer-events:none; opacity:.9;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.35));
+    }
+    .heart{
+      position:absolute;
+      width:14px; height:14px;
+      transform: rotate(45deg);
+      background: rgba(255,106,162,.65);
+      border-radius: 2px;
+      animation: rise 10s linear infinite;
+    }
+    .heart::before,.heart::after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart::before{ left:-7px; top:0;}
+    .heart::after{ left:0; top:-7px;}
+
+    @keyframes rise{
+      0%{ transform: translateY(30vh) rotate(45deg) scale(.9); opacity:0;}
+      10%{opacity:.85}
+      100%{ transform: translateY(-120vh) rotate(45deg) scale(1.25); opacity:0;}
+    }
+
+    .wrap{ max-width:1080px; margin:0 auto; padding:28px 18px 80px; }
+    .top{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+      padding:14px 16px;
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,106,162,.95), transparent 55%),
+        radial-gradient(circle at 70% 40%, rgba(167,139,250,.85), transparent 55%),
+        radial-gradient(circle at 50% 85%, rgba(103,232,249,.75), transparent 55%),
+        rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand h1{ margin:0; font-size:16px; letter-spacing:.2px; }
+    .brand p{ margin:2px 0 0; font-size:12px; color:var(--muted); }
+
+    .pillbar{ display:flex; gap:10px; flex-wrap:wrap; }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.04);
+      font-size:13px;
+      color: rgba(255,255,255,.86);
+      user-select:none;
+    }
+
+    .hero{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+    }
+    @media (max-width: 860px){
+      .hero{ grid-template-columns:1fr; }
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 280px at 20% 10%, rgba(255,106,162,.18), transparent 60%),
+                  radial-gradient(700px 280px at 80% 30%, rgba(167,139,250,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .headline{
+      font-size:34px;
+      line-height:1.12;
+      margin:0 0 10px;
+      letter-spacing:.2px;
+    }
+    .headline .grad{
+      background: linear-gradient(90deg, var(--pink), var(--violet), var(--cyan));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .sub{
+      margin:0 0 16px;
+      color: var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:16px;
+      padding:12px 14px;
+      font-weight:650;
+      font-size:14px;
+      transition: transform .08s ease, filter .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+    .btnPrimary{
+      background: linear-gradient(90deg, rgba(255,106,162,.95), rgba(167,139,250,.95));
+      color:#0b1020;
+      box-shadow: 0 18px 45px rgba(255,106,162,.22);
+    }
+    .btnGhost{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.16);
+      color: rgba(255,255,255,.92);
+    }
+    .tagline{
+      margin-top:14px;
+      font-size:13px;
+      color: rgba(255,255,255,.74);
+    }
+
+    .miniTitle{
+      margin:0 0 10px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+
+    .poem{
+      margin: 14px 0 0;
+      padding:14px 14px;
+      border-radius:18px;
+      border:1px dashed rgba(255,255,255,.20);
+      background: rgba(0,0,0,.12);
+      line-height:1.8;
+      color: rgba(255,255,255,.88);
+    }
+    .poem b{ color:#fff; }
+
+    .codebox{
+      margin-top:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .codeTop{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      font-size:12px;
+      color: rgba(255,255,255,.74);
+    }
+    .dots{ display:flex; gap:6px; }
+    .dot{ width:10px;height:10px;border-radius:50%; opacity:.85; }
+    .dot.r{ background:#ff5f56;}
+    .dot.y{ background:#ffbd2e;}
+    .dot.g{ background:#27c93f;}
+    pre{
+      margin:0; padding:14px 14px 16px;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size:13px;
+      line-height:1.65;
+      color: rgba(255,255,255,.88);
+    }
+    .hl{ color: var(--cyan); }
+    .hl2{ color: var(--pink); }
+    .hl3{ color: var(--gold); }
+
+    .grid2{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns:1fr; }
+    }
+    .tiny{
+      font-size:13px; color: rgba(255,255,255,.78); line-height:1.7; margin:0;
+    }
+    .list{
+      margin:10px 0 0;
+      padding:0 0 0 18px;
+      color: rgba(255,255,255,.82);
+      line-height:1.8;
+      font-size:13px;
+    }
+
+    .footer{
+      margin-top:22px;
+      text-align:center;
+      color: rgba(255,255,255,.58);
+      font-size:12px;
+    }
+
+    /* cute modal */
+    .modalBack{
+      position:fixed; inset:0; display:none;
+      align-items:center; justify-content:center;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      padding:18px;
+      z-index:50;
+    }
+    .modal{
+      width:min(620px, 100%);
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(18,10,31,.75);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .modalHead h3{ margin:0; font-size:14px; }
+    .xbtn{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9);
+      width:36px; height:36px;
+      border-radius:14px;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .modalBody{ padding:16px; }
+    .modalBody p{ margin:0 0 10px; color:rgba(255,255,255,.82); line-height:1.8; }
+    .input{
+      width:100%;
+      margin-top:10px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      outline:none;
+      font-size:14px;
+    }
+    .smallNote{ font-size:12px; color: rgba(255,255,255,.62); margin-top:10px; line-height:1.6; }
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.9);
+      padding:10px 12px;
+      border-radius:14px;
+      display:none;
+      z-index:60;
+      backdrop-filter: blur(10px);
+      font-size:13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- floating hearts -->
+  <div class="floaters" aria-hidden="true" id="floaters"></div>
+
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>💌 একটা ছোট্ট ওয়েবপেজ — তোমার জন্য</h1>
+          <p>কিউট + রোমান্টিক + সাহিত্য + কোডার-ভাইব</p>
+        </div>
+      </div>
+      <div class="pillbar">
+        <div class="pill">🌸 স্নিগ্ধ</div>
+        <div class="pill">🧠 কোডার-মুড</div>
+        <div class="pill">📚 সাহিত্য</div>
+        <div class="pill">💖 রোমান্স</div>
+      </div>
+    </header>
+
+    <main class="hero">
+      <section class="card">
+        <h2 class="headline">
+          তুমি <span class="grad">কোড</span> লিখো, আর আমার মাথায় চলে<br/>
+          <span class="grad">“তোমাকে নিয়ে একটা ফিচার শিপ করি?”</span> 😶‍🌫️💗
+        </h2>
+        <p class="sub">
+          এই সিঙ্গেল-পেজটা একটা ছোট্ট কনফেশন: তুমি যে এত স্মার্ট—আর এত কিউট—এটা
+          ডিবাগ করা আমার পক্ষে অসম্ভব। কিন্তু চেষ্টা করি, কারণ তুমি worth it।
+        </p>
+
+        <div class="ctaRow">
+          <button class="btn btnPrimary" id="btnOpen">
+            🧸 ছোট্ট একটা প্রশ্ন
+          </button>
+          <button class="btn btnGhost" id="btnPoem">
+            📜 কবিতা মোড অন
+          </button>
+          <button class="btn btnGhost" id="btnCopy">
+            📋 কিউট লাইন কপি
+          </button>
+        </div>
+
+        <div class="tagline" id="tagline">
+          টিপ: “কবিতা মোড” চাপলে তোমার স্ক্রিনে একটু বেশি সাহিত্য নেমে আসবে ✨
+        </div>
+
+        <div class="poem" id="poem" style="display:none;">
+          <b>তোমার কোডের মতোই তুমি—</b><br/>
+          কম কথা, বেশি কাজ; তবু প্রতিটা লাইনে নরম আলো।<br/>
+          আমার দিনগুলোতে তুমি যেন একটা <i>কম্পাইল</i>—<br/>
+          ভুলগুলো ঠিক করে, মনটা ঠিক জায়গায় বসিয়ে দাও।<br/><br/>
+          <b>আর আমি?</b><br/>
+          আমি শুধু চাই—তোমার পাশে একটা ছোট্ট ভ্যারিয়েবল হয়ে থাকি:<br/>
+          <span style="color:var(--cyan)"><b>const</b></span> <span style="color:var(--pink)"><b>youAndMe</b></span> = <span style="color:var(--gold)"><b>"forever-ish"</b></span> 💫
+        </div>
+      </section>
+
+      <aside class="card">
+        <h3 class="miniTitle">👩‍💻 কোডার-ক্রাশ স্পেশাল (কিউট টার্মস & vibe)</h3>
+        <p class="tiny">
+          কিছু লাইন আছে—একদম সাহিত্য + ডেভেলপার-ish। তুমি চাইলে তার নাম/তোমার নাম বসিয়ে দিতেও পারো।
+        </p>
+
+        <div class="codebox">
+          <div class="codeTop">
+            <div class="dots" aria-hidden="true">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            </div>
+            <div>love.js</div>
+          </div>
+          <pre id="codeText">
+<span class="hl">function</span> admiration() {
+  <span class="hl">return</span> "তুমি যখন ফোকাস করে কোড করো—আমার মনটা auto-merge হয়ে যায় 💗";
+}
+
+<span class="hl">const</span> promise = {
+  bug: "তোমাকে নিয়ে বেশি ভাবি",
+  fix: "তোমার হাসি দেখলে সব ঠিক 😌",
+};
+
+<span class="hl">export</span> <span class="hl2">default</span> "তুমি যদি ok বলো, আমি তোমার জীবনের supportive teammate হতে চাই 🙂";
+          </pre>
+        </div>
+
+        <div class="grid2">
+          <div class="codebox" style="padding:14px;">
+            <h3 class="miniTitle" style="margin-bottom:6px;">🌙 ছোট্ট ডেট আইডিয়া</h3>
+            <ul class="list">
+              <li>এক কাপ চা/কফি + “আজকে কী বানাচ্ছো?”</li>
+              <li>একটা ছোট্ট ডেমো: “তোমার favourite UI কোনটা?”</li>
+              <li>একটা বইয়ের দোকান + ১টা কবিতা</li>
+            </ul>
+          </div>
+          <div class="codebox" style="padding:14px;">
+            <h3 class="miniTitle" style="margin-bottom:6px;">✨ কেন তুমি আলাদা</h3>
+            <ul class="list">
+              <li>তোমার brain = clean architecture</li>
+              <li>তোমার smile = perfect deploy</li>
+              <li>তোমার vibe = calm + confident</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="card" style="margin-top:18px;">
+      <h3 class="miniTitle">💞 একটা মাইক্রো-লেটার (সাহিত্য + রোমান্টিক)</h3>
+      <p class="sub" style="margin-bottom:0;">
+        তুমি জানো? কিছু মানুষ থাকে—যাদের সাথে কথা বললেই মাথার ভেতর “হোম” শব্দটা বাজে।
+        তুমি ঠিক সেই রকম। তোমার সাথে থাকলে মনে হয়, পৃথিবীর নোইজ কমে যায়—আর আমার ভেতরের
+        সব এলোমেলো চিন্তা একটা সুন্দর কমিটে গোছানো থাকে।<br/><br/>
+        আমি তোমাকে impress করতে চাই না—আমি শুধু চাই, তুমি হাসো। আর যদি কখনও মন খারাপ হয়,
+        আমি তোমার পাশে থাকবো… একদম quiet support—যেমন একটা ভালো teammate। 🤍
+      </p>
+    </section>
+
+    <div class="footer">
+      made with 💖 + একটু বেশি সাহস | (তুমি চাইলে এখানে তোমার নাম লিখে দাও 😉)
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modalHead">
+        <h3 id="modalTitle">🧸 একটা কিউট প্রশ্ন (হালকা রোমান্টিক)</h3>
+        <button class="xbtn" id="btnClose" aria-label="বন্ধ">×</button>
+      </div>
+      <div class="modalBody">
+        <p id="questionText">
+          তুমি কি আমার সাথে একদিন “কফি + কোড + গল্প” করতে রাজি? 🫶
+        </p>
+        <input class="input" id="nameInput" placeholder="তার নাম (optional) লিখলে লাইনটা আরও কিউট হবে…" />
+        <button class="btn btnPrimary" id="btnGenerate" style="margin-top:12px;">
+          ✨ কিউট লাইন বানাও
+        </button>
+        <p class="smallNote">
+          টিপ: নাম না দিলেও কাজ করে। নাম দিলে লাইনটা personalized হয়ে যায় 😄
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied ✅</div>
+
+  <script>
+    // Create floating hearts
+    (function(){
+      const f = document.getElementById('floaters');
+      const hearts = 18;
+      for(let i=0;i<hearts;i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        const left = Math.random()*100;
+        const delay = Math.random()*8;
+        const dur = 8 + Math.random()*8;
+        const size = 10 + Math.random()*14;
+        h.style.left = left + 'vw';
+        h.style.animationDelay = delay + 's';
+        h.style.animationDuration = dur + 's';
+        h.style.width = size + 'px';
+        h.style.height = size + 'px';
+        h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
+        // random tint
+        const t = Math.random();
+        if (t < .33) h.style.background = 'rgba(255,106,162,.65)';
+        else if (t < .66) h.style.background = 'rgba(167,139,250,.55)';
+        else h.style.background = 'rgba(103,232,249,.50)';
+        f.appendChild(h);
+      }
+    })();
+
+    const modalBack = document.getElementById('modalBack');
+    const btnOpen = document.getElementById('btnOpen');
+    const btnClose = document.getElementById('btnClose');
+    const btnGenerate = document.getElementById('btnGenerate');
+    const nameInput = document.getElementById('nameInput');
+    const questionText = document.getElementById('questionText');
+    const btnPoem = document.getElementById('btnPoem');
+    const poem = document.getElementById('poem');
+    const btnCopy = document.getElementById('btnCopy');
+    const codeText = document.getElementById('codeText');
+    const toast = document.getElementById('toast');
+    const tagline = document.getElementById('tagline');
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      clearTimeout(window.__t);
+      window.__t = setTimeout(()=> toast.style.display='none', 1300);
+    }
+
+    btnOpen.addEventListener('click', ()=> {
+      modalBack.style.display = 'flex';
+      nameInput.focus();
+    });
+
+    btnClose.addEventListener('click', ()=> {
+      modalBack.style.display = 'none';
+    });
+
+    modalBack.addEventListener('click', (e)=> {
+      if(e.target === modalBack) modalBack.style.display = 'none';
+    });
+
+    btnGenerate.addEventListener('click', async ()=> {
+      const name = (nameInput.value || '').trim();
+      const cute = name
+        ? `${name} — তুমি কি জানো? তোমার সাথে কথা বললে আমার দিনটা “কমপাইল” হয়ে যায়। একদিন কফি + কোড + গল্প করবে? ☕💗`
+        : `তুমি কি জানো? তোমার সাথে কথা বললে আমার দিনটা “কমপাইল” হয়ে যায়। একদিন কফি + কোড + গল্প করবে? ☕💗`;
+      questionText.textContent = cute;
+
+      try{
+        await navigator.clipboard.writeText(cute);
+        showToast('কিউট লাইন কপি হয়েছে ✅');
+      }catch{
+        showToast('কপি করতে পারিনি—ম্যানুয়ালি কপি করে নাও 😅');
+      }
+    });
+
+    btnPoem.addEventListener('click', ()=> {
+      const on = poem.style.display !== 'none';
+      poem.style.display = on ? 'none' : 'block';
+      tagline.textContent = on
+        ? 'টিপ: “কবিতা মোড” চাপলে তোমার স্ক্রিনে একটু বেশি সাহিত্য নেমে আসবে ✨'
+        : 'কবিতা মোড অন ✅ এখন সাহস করে তাকে পাঠাও 🙂💗';
+    });
+
+    btnCopy.addEventListener('click', async ()=> {
+      const line = "তুমি যখন কোড করো—আমার মনটা বলে: ‘এই মানুষটার পাশে শান্তি আছে।’ 💖";
+      try{
+        await navigator.clipboard.writeText(line);
+        showToast('লাইন কপি ✅ এখন পাঠাও bro 😄');
+      }catch{
+        showToast('কপি ফেল 😅 সিলেক্ট করে কপি করো');
+      }
+    });
+  </script>
+</body>
+</html>
